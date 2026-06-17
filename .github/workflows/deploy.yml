@@ -1,0 +1,29 @@
+name: Deploy to Cloudflare Workers
+
+on:
+  push:
+    branches:
+      - main # 当你往 main 分支提交代码时触发
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # ----------------------------------------------------
+      # 🚀 部署第一个项目：1368-5186
+      # ----------------------------------------------------
+      # 注入第一个项目的 KV 绑定（从作者源码可知，绑定名必须叫 "KV"）
+      - name: Inject KV for First Worker
+        run: |
+          echo "" >> wrangler.toml
+          echo 'kv_namespaces = [ { binding = "KV", id = "ea5ef0efcb004c02aadcd14d9f6d0b75" } ]' >> wrangler.toml
+
+      - name: Deploy First Worker
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          command: deploy --name 1368-5186
+​
