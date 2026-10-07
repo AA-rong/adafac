@@ -21,11 +21,10 @@ jobs:
       - name: Inject KV
         run: |
           echo "" >> wrangler.toml
-          echo 'kv_namespaces = [ { binding = "KV", id = "dd5cc52150484c03940c46c8ed679985" } ]' >> wrangler.toml
+          echo 'kv_namespaces = [ { binding = "KV", id = "ea5ef0efcb004c02aadcd14d9f6d0b75" } ]' >> wrangler.toml
 
       - name: Deploy Worker
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          wrangler-version: "4"
           command: deploy --name 1368-5186
